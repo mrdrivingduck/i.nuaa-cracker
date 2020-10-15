@@ -56,14 +56,10 @@ def send_email(receiver, message):
     sender = 'auto_clockin_mail@163.com'
     pwd = 'LDEEKLCCPHAAIQJK'
 
-    # body = '<h1>您已打卡成功</h1><p>感谢使用</p>'
-    body = message
-    msg = MIMEText(body, 'html')
+    msg = MIMEText(message, 'html')
     msg['subject'] = '打卡通知'
     msg['from'] = sender
     msg['to'] = receiver
-
-    print(message)
 
     try:
         s = smtplib.SMTP_SSL(host)

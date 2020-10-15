@@ -23,11 +23,11 @@ Browser drivers are also needed:
 
 ## Usage
 
-### Freedom
+将 `config` 目录下的 `config.json.template` 复制一份并命名为 `config.json`。在其中配置好自己的信息。
 
-根据配置自行进行出校报备。可配置为操作系统定时任务实现每日自动报备以顺畅通过人脸识别闸机。💩
-
-将 `config` 目录下的 `freedom.json.template` 复制一份并命名为 `freedom.json`。在其中配置好自己的信息。
+```shell
+python src/main.py config/config.json
+```
 
 ---
 
