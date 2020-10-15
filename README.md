@@ -8,6 +8,10 @@
 
 For automating some jobs on [i.NUAA](https://i.nuaa.edu.cn).
 
+* Daily reporting for health status
+* Daily reporting for leaving campus
+* ...
+
 ## Dependencies
 
 [Selenium with Python3](https://selenium-python.readthedocs.io/).
@@ -23,7 +27,7 @@ Browser drivers are also needed:
 
 ## Usage
 
-将 `config` 目录下的 `config.json.template` 复制一份并命名为 `config.json`。在其中配置好自己的信息。
+Copy `config/config.json.template` and rename the file to `config.json`. Configure your own information in `config.json`. Then run the script by:
 
 ```shell
 python src/main.py config/config.json
@@ -31,9 +35,17 @@ python src/main.py config/config.json
 
 ---
 
+## Contributor
+
+<a href="https://github.com/mrdrivingduck/i.nuaa-cracker/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=mrdrivingduck/i.nuaa-cracker" />
+</a>
+
+Made with [contributors-img](https://contributors-img.web.app).
+
 ## License
 
-
+[MIT](LICENSE)
 
 ---
 

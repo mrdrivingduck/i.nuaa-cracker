@@ -16,6 +16,7 @@ def get_user_config(path):
 # 将用户自定义的配置文件与默认的配置文件合并
 def merge_default_config(config):
     reason_pool = ['吃饭', '去超市', '干洗店取衣服', '买杯咖啡', '打球']
+
     default = {
         # username (needed)
         # password (needed)
@@ -56,7 +57,7 @@ def send_email(receiver, message):
     sender = 'auto_clockin_mail@163.com'
     pwd = 'LDEEKLCCPHAAIQJK'
 
-    msg = MIMEText(message, 'html')
+    msg = MIMEText(message, 'html', 'utf-8')
     msg['subject'] = '打卡通知'
     msg['from'] = sender
     msg['to'] = receiver
@@ -69,4 +70,4 @@ def send_email(receiver, message):
         print('Done. Send email success.')
     except smtplib.SMTPException as e:
         print('Error. Send email failed.')
-        print('Error info: ' + e)
+        print('Error info: ' + repr(e))

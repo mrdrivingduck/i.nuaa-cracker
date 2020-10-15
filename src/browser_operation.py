@@ -14,6 +14,7 @@ def report_leave_school(config, timeout):
     elif config["driver"] == "Edge":
         driver = webdriver.Edge()
     else:
+        print("Driver unsupport.")
         return
 
     driver.get(url="https://ehall.nuaa.edu.cn/")
