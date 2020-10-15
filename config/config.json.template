@@ -2,7 +2,7 @@
     {
         "username": "SX1010110", // 必填
         "password": "111111", // 必填
-        "email": "example@qq.com", //必填 (用于打卡成功后发送通知)
+        "email": "example@qq.com", // 必填 (用于打卡成功后发送通知)
 
         "assistant": "刘阿爽", // 可选 (不选则使用默认辅导员)
         "supervisor": "大刘", // 可选 (不选则使用默认导师)

@@ -1,32 +1,32 @@
 
-from browser_operator import report_leave_school
-from browser_operator import health_clockin
-from util import getuserinfo
-from util import sendemail
+from browser_operation import report_leave_school
+from browser_operation import report_health_status
+from util import get_user_config
+from util import send_email
 from util import merge_default_config
+import sys
 
 
-def single_person_action(config):
-    config = merge_default_config(config)
-    email = config['email']
-    flag = True
+def single_person_action(user_config):
+    config = merge_default_config(user_config)
+    
     if config is None:
         print("Configuration error.")
         exit(0)
     else:
         print(config)
+
+    email = config['email']
     try:
-        health_clockin(config, 5)
+        report_health_status(config, 5)
         report_leave_school(config, timeout=8)
     except Exception as message:
-        flag = False
-        sendemail(email, repr(message))
-    body = '<h1>您已打卡成功</h1><p>感谢使用</p>'
-    if flag is True:
-        sendemail(email, body)
+        send_email(email, repr(message))
+    else:
+        send_email(email, '<h1>您已打卡成功</h1><p>感谢使用</p>')
 
 
 if __name__ == '__main__':
-    config = getuserinfo("config/freedom.json")
-    for person in config:
+    user_configs = get_user_config(sys.argv[1])
+    for person in user_configs:
         single_person_action(person)
