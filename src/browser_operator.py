@@ -13,6 +13,8 @@ def report_leave_school(config, timeout):
     # init the driver
     if config["driver"] == "Chrome":
         driver = webdriver.Chrome()
+    elif config["driver"] == "Edge":
+        driver = webdriver.Edge()
     else:
         return
 
@@ -122,6 +124,8 @@ def report_leave_school(config, timeout):
 def health_clockin(config, timeout):
     if config["driver"] == "Chrome":
         driver = webdriver.Chrome()
+    elif config["driver"] == "Edge":
+        driver = webdriver.Edge()
     else:
         return
     driver.get(url="https://m.nuaa.edu.cn/ncov/wap/default/index")
