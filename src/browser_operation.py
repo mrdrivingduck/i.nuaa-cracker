@@ -2,7 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as Ec
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 import time
 
@@ -20,7 +20,7 @@ def report_leave_school(config, timeout):
     driver.get(url="https://ehall.nuaa.edu.cn/")
     # time.sleep(timeout)
     element = WebDriverWait(driver, timeout).until(
-        Ec.presence_of_element_located((By.ID, 'username')))
+        EC.presence_of_element_located((By.ID, 'username')))
     element.send_keys(config["username"])
     # login
     # driver.find_element_by_id("username").send_keys(config["username"])
@@ -31,7 +31,7 @@ def report_leave_school(config, timeout):
     # time.sleep(timeout)
     # select freedom service
     request_page = WebDriverWait(driver, timeout).until(
-        Ec.presence_of_element_located((By.LINK_TEXT, '疫情防控期学生出校申请/报备')))
+        EC.presence_of_element_located((By.LINK_TEXT, '疫情防控期学生出校申请/报备')))
     # request_page = driver.find_element_by_link_text("疫情防控期学生出校申请/报备")
     request_page.click()
     time.sleep(timeout)
@@ -39,7 +39,7 @@ def report_leave_school(config, timeout):
     # open up the form
     driver.switch_to.window(driver.window_handles[1])
     form_page = WebDriverWait(driver, timeout).until(
-        Ec.presence_of_element_located((By.ID, 'preview_start_button')))
+        EC.presence_of_element_located((By.ID, 'preview_start_button')))
     # form_page = driver.find_element_by_id("preview_start_button")
     form_page.click()
     # time.sleep(timeout)
@@ -47,8 +47,9 @@ def report_leave_school(config, timeout):
     ####################### fill in the form ########################
 
     if "assistant" in config:
+        time.sleep(timeout)
         assistant = WebDriverWait(driver, timeout).until(
-            Ec.presence_of_element_located((By.XPATH, '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/input')))
+            EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/input')))
         # assistant = driver.find_element_by_xpath(
         # r'/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/input')
         # assistant.click()
@@ -61,8 +62,9 @@ def report_leave_school(config, timeout):
 
         assistant.send_keys(config["assistant"])
         # time.sleep(timeout)
+        time.sleep(2)
         new_assistant = WebDriverWait(driver, timeout).until(
-            Ec.presence_of_element_located((By.XPATH, '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/div[1]/div')))
+            EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/div[1]/div')))
         # new_assistant = driver.find_element_by_xpath(
         #     r'/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/div[1]/div')
         new_assistant.click()
@@ -74,7 +76,7 @@ def report_leave_school(config, timeout):
         # teacher.send_keys('刘哲')
     time.sleep(3)
     temp = WebDriverWait(driver, timeout).until(
-        Ec.presence_of_element_located((By.XPATH, r'//*[@id="V1_CTRL70"]')))
+        EC.presence_of_element_located((By.XPATH, r'//*[@id="V1_CTRL70"]')))
     # campus = Select(driver.find_element_by_xpath(r'//*[@id="V1_CTRL70"]'))
     campus = Select(temp)
     campus.select_by_visible_text(config["campus"])
@@ -111,7 +113,7 @@ def report_leave_school(config, timeout):
 
     # time.sleep(timeout)
     final_check = WebDriverWait(driver, timeout).until(
-        Ec.presence_of_element_located((By.XPATH, '/html/body/div[7]/div/div[2]/button[1]')))
+        EC.presence_of_element_located((By.XPATH, '/html/body/div[7]/div/div[2]/button[1]')))
 
     # final_check = driver.find_element_by_xpath(
     #     r'/html/body/div[7]/div/div[2]/button[1]')
@@ -130,7 +132,7 @@ def report_health_status(config, timeout):
     driver.get(url="https://m.nuaa.edu.cn/ncov/wap/default/index")
     # time.sleep(timeout)
     element = WebDriverWait(driver, timeout).until(
-        Ec.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[2]/div[1]/input')))
+        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[2]/div[1]/input')))
     element.send_keys(config["username"])
     # driver.find_element_by_xpath(
     #     "/html/body/div[1]/div[2]/div[1]/input").send_keys(config["username"])
@@ -141,7 +143,7 @@ def report_health_status(config, timeout):
     submit.click()
     # time.sleep(timeout)
     location = WebDriverWait(driver, timeout).until(
-        Ec.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')))
+        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')))
     # location = driver.find_element_by_xpath(
     #     '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')
     location.click()
@@ -152,7 +154,7 @@ def report_health_status(config, timeout):
     submit.click()
     # time.sleep(timeout)
     confirm = WebDriverWait(driver, timeout).until(
-        Ec.presence_of_element_located((By.XPATH, '/html/body/div[4]/div/div[2]/div[2]')))
+        EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div/div[2]/div[2]')))
     # confirm = driver.find_element_by_xpath(
     #     '/html/body/div[4]/div/div[2]/div[2]')
     confirm.click()
