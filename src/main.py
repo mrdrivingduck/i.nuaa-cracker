@@ -5,6 +5,7 @@ from util import get_user_config
 from util import send_email
 from util import merge_default_config
 import sys
+import datetime
 
 
 def single_person_action(user_config):
@@ -25,7 +26,7 @@ def single_person_action(user_config):
         return True
     else:
         send_email(
-            email, '<h1>您已打卡成功</h1><h3>感谢使用</h3><p>nuaa团队倾情打造，只为更省时省力的你</p>')
+            email, '<h1>您已打卡成功</h1><h3>感谢使用</h3><p>nuaa团队倾情打造，只为更省时省力的你</p><p>' + datetime.date.today().strftime("%Y-%m-%d") + '</p>')
         return False
 
 
