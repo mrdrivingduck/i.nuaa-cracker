@@ -4,9 +4,11 @@ import datetime
 import random
 import smtplib
 from email.mime.text import MIMEText
-
+from email.mime.multipart import MIMEMultipart
 
 # 读取用户的配置文件 (JSON 格式)
+
+
 def get_user_config(path):
     with open(path, "r", encoding="utf-8") as file:
         config = json.loads(file.read())
@@ -24,7 +26,8 @@ def merge_default_config(config):
         # assistant (optional)
         # supervisor (optional)
 
-        "date": (datetime.date.today() + datetime.timedelta(days=1)).strftime("%Y-%m-%d"),  # default: today + 1
+        # default: today + 1
+        "date": (datetime.date.today() + datetime.timedelta(days=1)).strftime("%Y-%m-%d"),
         "reason": reason_pool[random.randint(0, len(reason_pool) - 1)],
         "campus": "将军路校区",
         # "assistant": "刘爽",
@@ -54,19 +57,25 @@ def merge_default_config(config):
 def send_email(receiver, message):
     host = 'smtp.163.com'
     port = 465
-    sender = 'auto_clockin_mail@163.com'
-    pwd = 'LDEEKLCCPHAAIQJK'
+    sender = 'programmer<auto_clockin_mail@163.com>'
+    l_sender = 'auto_clockin_mail@163.com'
+    pwd = 'PZCVFQNUMFNKCIKV'
 
-    msg = MIMEText(message, 'html', 'utf-8')
+    to_receiver = [receiver, sender]
+    # cc_receiver = [sender]
+    receiver = to_receiver
+    msg = MIMEMultipart()
+    msg.attach(MIMEText(message, 'html', 'utf-8'))
     msg['subject'] = '打卡通知'
     msg['from'] = sender
-    msg['to'] = receiver
+    msg['to'] = ";".join(to_receiver)
+    # msg['Cc'] = ";".join(cc_receiver)
 
     try:
         s = smtplib.SMTP_SSL(host)
         s.connect(host='smtp.163.com', port=port)
-        s.login(sender, pwd)
-        s.sendmail(sender, receiver, msg.as_string())
+        s.login('auto_clockin_mail@163.com', pwd)
+        s.sendmail(l_sender, receiver, msg.as_string())
         print('Done. Send email success.')
     except smtplib.SMTPException as e:
         print('Error. Send email failed.')

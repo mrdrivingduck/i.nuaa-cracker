@@ -24,7 +24,8 @@ def single_person_action(user_config):
         send_email(email, repr(message))
         return True
     else:
-        send_email(email, '<h1>您已打卡成功</h1><p>感谢使用</p>')
+        send_email(
+            email, '<h1>您已打卡成功</h1><h3>感谢使用</h3><p>nuaa团队倾情打造，只为更省时省力的你</p>')
         return False
 
 
