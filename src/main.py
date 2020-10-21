@@ -19,9 +19,10 @@ def single_person_action(user_config):
 
     email = config['email']
     try:
-        report_health_status(config, 5)
-        report_leave_school(config, timeout=8)
+        report_health_status(config, 15)
+        report_leave_school(config, timeout=15)
     except Exception as message:
+        # print(repr(message))
         send_email(email, repr(message))
         return True
     else:
@@ -32,7 +33,7 @@ def single_person_action(user_config):
 
 if __name__ == '__main__':
     user_configs = get_user_config(sys.argv[1])
-    flag = True
     for person in user_configs:
+        flag = True
         while flag:
             flag = single_person_action(person)

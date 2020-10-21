@@ -34,7 +34,7 @@ def report_leave_school(config, timeout):
         EC.presence_of_element_located((By.LINK_TEXT, '疫情防控期学生出校申请/报备')))
     # request_page = driver.find_element_by_link_text("疫情防控期学生出校申请/报备")
     request_page.click()
-    time.sleep(timeout)
+    time.sleep(8)
 
     # open up the form
     driver.switch_to.window(driver.window_handles[1])
@@ -47,7 +47,7 @@ def report_leave_school(config, timeout):
     ####################### fill in the form ########################
 
     if "assistant" in config:
-        time.sleep(timeout)
+        time.sleep(8)
         assistant = WebDriverWait(driver, timeout).until(
             EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/input')))
         # assistant = driver.find_element_by_xpath(
@@ -102,7 +102,7 @@ def report_leave_school(config, timeout):
     is_return = driver.find_element_by_xpath(r'//*[@id="V1_CTRL88"]')
     # is_return.location_once_scrolled_into_view
     is_return.click()
-    time.sleep(1)
+    time.sleep(2)
     promise = driver.find_element_by_xpath(r'//*[@id="V1_CTRL90"]')
     # ensure.location_once_scrolled_into_view
     promise.click()
@@ -118,7 +118,7 @@ def report_leave_school(config, timeout):
     # final_check = driver.find_element_by_xpath(
     #     r'/html/body/div[7]/div/div[2]/button[1]')
     final_check.click()
-
+    driver.close()
     driver.quit()
 
 
@@ -141,13 +141,13 @@ def report_health_status(config, timeout):
         "/html/body/div[1]/div[2]/div[2]/input").send_keys(config["password"])
     submit = driver.find_element_by_class_name("btn")
     submit.click()
-    # time.sleep(timeout)
+    # time.sleep(3)
     location = WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')))
     # location = driver.find_element_by_xpath(
     #     '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')
     location.click()
-    time.sleep(timeout)
+    time.sleep(5)
 
     submit = driver.find_element_by_xpath(
         '/html/body/div[1]/div/div/section/div[5]/div/a')
