@@ -1,14 +1,12 @@
-
 import json
-import datetime
 import random
+import datetime
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+
 # 读取用户的配置文件 (JSON 格式)
-
-
 def get_user_config(path):
     with open(path, "r", encoding="utf-8") as file:
         config = json.loads(file.read())
@@ -30,7 +28,6 @@ def merge_default_config(config):
         "date": (datetime.date.today() + datetime.timedelta(days=2)).strftime("%Y-%m-%d"),
         "reason": reason_pool[random.randint(0, len(reason_pool) - 1)],
         "campus": "将军路校区",
-        # "assistant": "刘爽",
         "driver": "Chrome"
     }
 
@@ -53,11 +50,24 @@ def merge_default_config(config):
     return default
 
 
+def build_mail_content(content, failed):
+    result = '<h1>i.NUAA-cracker Notification</h1>'
+    if failed is True:
+        result += '<h3>Operation Failed!</h3>'\
+                  + '<p>Check the reason and report to <a href="mailto:mrdrivingduck@gmail.com">us</a></p>'\
+                  + '<p>' + content + '</p>'
+    else:
+        result += '<h3>Operation Success!</h3>' + '<p>' + content + '</p>'
+    # print(result)
+    result += '<p>Completed at: ' + datetime.datetime.now().strftime("%a %b %d %H:%M:%S %Y") + '</p>'
+    return result
+
+
 # 在发送成功后向用户发送通知邮件
 def send_email(receiver, message):
     host = 'smtp.163.com'
     port = 465
-    sender = 'programmer<auto_clockin_mail@163.com>'
+    sender = 'i.NUAA-crack-bot <auto_clockin_mail@163.com>'
     l_sender = 'auto_clockin_mail@163.com'
     pwd = 'PZCVFQNUMFNKCIKV'
 
@@ -66,7 +76,7 @@ def send_email(receiver, message):
     receiver = to_receiver
     msg = MIMEMultipart()
     msg.attach(MIMEText(message, 'html', 'utf-8'))
-    msg['subject'] = '打卡通知'
+    msg['subject'] = 'i.NUAA-cracker Notification'
     msg['from'] = sender
     msg['to'] = ";".join(to_receiver)
     # msg['Cc'] = ";".join(cc_receiver)

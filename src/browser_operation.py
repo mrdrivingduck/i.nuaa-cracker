@@ -1,4 +1,3 @@
-
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
@@ -49,7 +48,8 @@ def report_leave_school(config, timeout):
     if "assistant" in config:
         time.sleep(8)
         assistant = WebDriverWait(driver, timeout).until(
-            EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/input')))
+            EC.presence_of_element_located((By.XPATH,
+                                            '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/input')))
         # assistant = driver.find_element_by_xpath(
         # r'/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/input')
         # assistant.click()
@@ -64,7 +64,8 @@ def report_leave_school(config, timeout):
         # time.sleep(timeout)
         time.sleep(2)
         new_assistant = WebDriverWait(driver, timeout).until(
-            EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/div[1]/div')))
+            EC.presence_of_element_located((By.XPATH,
+                                            '/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/div[1]/div')))
         # new_assistant = driver.find_element_by_xpath(
         #     r'/html/body/div[4]/form/div/div[2]/div[3]/div/div[1]/div[1]/table/tbody/tr[2]/td/div/table/tbody/tr[4]/td[2]/div/div/div/div/div[1]/div')
         new_assistant.click()
@@ -127,36 +128,45 @@ def report_health_status(config, timeout):
         driver = webdriver.Chrome()
     elif config["driver"] == "Edge":
         driver = webdriver.Edge()
+    elif config["driver"] == "Firefox":
+        driver = webdriver.Firefox()
     else:
         return
     driver.get(url="https://m.nuaa.edu.cn/ncov/wap/default/index")
-    # time.sleep(timeout)
-    element = WebDriverWait(driver, timeout).until(
-        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[2]/div[1]/input')))
-    element.send_keys(config["username"])
-    # driver.find_element_by_xpath(
-    #     "/html/body/div[1]/div[2]/div[1]/input").send_keys(config["username"])
 
-    driver.find_element_by_xpath(
-        "/html/body/div[1]/div[2]/div[2]/input").send_keys(config["password"])
-    submit = driver.find_element_by_class_name("btn")
-    submit.click()
-    # time.sleep(3)
-    location = WebDriverWait(driver, timeout).until(
-        EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')))
-    # location = driver.find_element_by_xpath(
-    #     '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')
-    location.click()
-    time.sleep(5)
+    try:
 
-    submit = driver.find_element_by_xpath(
-        '/html/body/div[1]/div/div/section/div[5]/div/a')
-    submit.click()
-    # time.sleep(timeout)
-    confirm = WebDriverWait(driver, timeout).until(
-        EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div/div[2]/div[2]')))
-    # confirm = driver.find_element_by_xpath(
-    #     '/html/body/div[4]/div/div[2]/div[2]')
-    confirm.click()
-    driver.close()
-    driver.quit()
+        # time.sleep(timeout)
+        element = WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[2]/div[1]/input')))
+        element.send_keys(config["username"])
+        # driver.find_element_by_xpath(
+        #     "/html/body/div[1]/div[2]/div[1]/input").send_keys(config["username"])
+
+
+        driver.find_element_by_xpath(
+            "/html/body/div[1]/div[2]/div[2]/input").send_keys(config["password"])
+        submit = driver.find_element_by_class_name("btn")
+        submit.click()
+        # time.sleep(3)
+        location = WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')))
+        # location = driver.find_element_by_xpath(
+        #     '/html/body/div[1]/div/div/section/div[4]/ul/li[9]/div/input')
+        location.click()
+        time.sleep(5)
+
+        submit = driver.find_element_by_xpath(
+            '/html/body/div[1]/div/div/section/div[5]/div/a')
+        submit.click()
+        # time.sleep(timeout)
+        confirm = WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.XPATH, '/html/body/div[4]/div/div[2]/div[2]')))
+        # confirm = driver.find_element_by_xpath(
+        #     '/html/body/div[4]/div/div[2]/div[2]')
+        confirm.click()
+    except:
+        raise 
+    finally:
+        driver.close()
+        driver.quit()
