@@ -24,8 +24,9 @@ def merge_default_config(config):
         # assistant (optional)
         # supervisor (optional)
 
-        # default: today + 2
-        "date": (datetime.date.today() + datetime.timedelta(days=2)).strftime("%Y-%m-%d"),
+        # default: today
+        # "date": (datetime.date.today() + datetime.timedelta(days=2)).strftime("%Y-%m-%d"),
+        "date": datetime.date.today().strftime("%Y-%m-%d"),
         "reason": reason_pool[random.randint(0, len(reason_pool) - 1)],
         "campus": "将军路校区",
         "driver": "Chrome"
